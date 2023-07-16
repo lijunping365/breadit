@@ -1,23 +1,13 @@
 import { db } from '@/lib/db'
-import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { nanoid } from 'nanoid'
-import { NextAuthOptions, getServerSession } from 'next-auth'
-import GoogleProvider from 'next-auth/providers/google'
 
-export const authOptions: NextAuthOptions = {
-  adapter: PrismaAdapter(db),
+export const authOptions: any = {
   session: {
     strategy: 'jwt',
   },
   pages: {
     signIn: '/sign-in',
   },
-  providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-    }),
-  ],
   callbacks: {
     async session({ token, session }) {
       if (token) {
@@ -68,4 +58,4 @@ export const authOptions: NextAuthOptions = {
   },
 }
 
-export const getAuthSession = () => getServerSession(authOptions)
+export const getAuthSession = () => {};

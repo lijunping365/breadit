@@ -23,17 +23,7 @@ const Layout = async ({
 }) => {
   const session = await getAuthSession()
 
-  const subreddit = await db.subreddit.findFirst({
-    where: { name: slug },
-    include: {
-      posts: {
-        include: {
-          author: true,
-          votes: true,
-        },
-      },
-    },
-  })
+  const subreddit = {createdAt: '3023-07-14:23:06:10'}
 
   const subscription = !session?.user
     ? undefined
@@ -52,13 +42,7 @@ const Layout = async ({
 
   if (!subreddit) return notFound()
 
-  const memberCount = await db.subscription.count({
-    where: {
-      subreddit: {
-        name: slug,
-      },
-    },
-  })
+  const memberCount = 5000
 
   return (
     <div className='sm:container max-w-7xl mx-auto h-full pt-12'>
@@ -77,8 +61,8 @@ const Layout = async ({
               <div className='flex justify-between gap-x-4 py-3'>
                 <dt className='text-gray-500'>Created</dt>
                 <dd className='text-gray-700'>
-                  <time dateTime={subreddit.createdAt.toDateString()}>
-                    {format(subreddit.createdAt, 'MMMM d, yyyy')}
+                  <time dateTime={subreddit.createdAt}>
+
                   </time>
                 </dd>
               </div>
@@ -88,19 +72,15 @@ const Layout = async ({
                   <div className='text-gray-900'>{memberCount}</div>
                 </dd>
               </div>
-              {subreddit.creatorId === session?.user?.id ? (
-                <div className='flex justify-between gap-x-4 py-3'>
-                  <dt className='text-gray-500'>You created this community</dt>
-                </div>
-              ) : null}
+              <div className='flex justify-between gap-x-4 py-3'>
+                <dt className='text-gray-500'>You created this community</dt>
+              </div>
 
-              {subreddit.creatorId !== session?.user?.id ? (
-                <SubscribeLeaveToggle
-                  isSubscribed={isSubscribed}
-                  subredditId={subreddit.id}
-                  subredditName={subreddit.name}
-                />
-              ) : null}
+              <SubscribeLeaveToggle
+                isSubscribed={isSubscribed}
+                subredditId={subreddit.id}
+                subredditName={subreddit.name}
+              />
               <Link
                 className={buttonVariants({
                   variant: 'outline',

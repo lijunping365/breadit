@@ -10,11 +10,7 @@ interface pageProps {
 }
 
 const page = async ({ params }: pageProps) => {
-  const subreddit = await db.subreddit.findFirst({
-    where: {
-      name: params.slug,
-    },
-  })
+  const subreddit = {}
 
   if (!subreddit) return notFound()
 

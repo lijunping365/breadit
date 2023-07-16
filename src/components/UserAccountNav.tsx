@@ -2,7 +2,6 @@
 
 import Link from 'next/link'
 import { User } from 'next-auth'
-import { signOut } from 'next-auth/react'
 
 import {
   DropdownMenu,
@@ -16,6 +15,8 @@ import { UserAvatar } from '@/components/UserAvatar'
 interface UserAccountNavProps extends React.HTMLAttributes<HTMLDivElement> {
   user: Pick<User, 'name' | 'image' | 'email'>
 }
+
+const signOut = (fn:any)=>{}
 
 export function UserAccountNav({ user }: UserAccountNavProps) {
   return (

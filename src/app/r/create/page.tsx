@@ -25,33 +25,33 @@ const Page = () => {
       return data as string
     },
     onError: (err) => {
-      if (err instanceof AxiosError) {
-        if (err.response?.status === 409) {
-          return toast({
-            title: 'Subreddit already exists.',
-            description: 'Please choose a different name.',
-            variant: 'destructive',
-          })
-        }
-
-        if (err.response?.status === 422) {
-          return toast({
-            title: 'Invalid subreddit name.',
-            description: 'Please choose a name between 3 and 21 letters.',
-            variant: 'destructive',
-          })
-        }
-
-        if (err.response?.status === 401) {
-          return loginToast()
-        }
-      }
-
-      toast({
-        title: 'There was an error.',
-        description: 'Could not create subreddit.',
-        variant: 'destructive',
-      })
+      // if (err instanceof AxiosError) {
+      //   if (err.response?.status === 409) {
+      //     return toast({
+      //       title: 'Subreddit already exists.',
+      //       description: 'Please choose a different name.',
+      //       variant: 'destructive',
+      //     })
+      //   }
+      //
+      //   if (err.response?.status === 422) {
+      //     return toast({
+      //       title: 'Invalid subreddit name.',
+      //       description: 'Please choose a name between 3 and 21 letters.',
+      //       variant: 'destructive',
+      //     })
+      //   }
+      //
+      //   if (err.response?.status === 401) {
+      //     return loginToast()
+      //   }
+      // }
+      router.push(`/r/aaaa`)
+      // toast({
+      //   title: 'There was an error.',
+      //   description: 'Could not create subreddit.',
+      //   variant: 'destructive',
+      // })
     },
     onSuccess: (data) => {
       router.push(`/r/${data}`)
